@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f7fb">
+<title>РадиоТренажёр — подготовка к тесту</title>
+<style>
+:root{--ink:#17233b;--muted:#71809b;--blue:#4568e8;--line:#e3e9f3;--bg:#f5f7fb;--green:#18865d;--red:#c34452}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer}.wrap{max-width:920px;margin:auto;padding:28px 20px 56px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px}.brand{font-weight:800;letter-spacing:-.03em;font-size:20px}.brand span{color:var(--blue)}.saved{color:var(--muted);font-size:13px}.hero{margin:44px 0 28px}.eyebrow{color:var(--blue);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-.04em;margin:8px 0 14px}.hero p{color:var(--muted);max-width:620px;margin:0}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 30px #283d6810}.card h2{margin:0 0 6px;font-size:20px}.card p{margin:0;color:var(--muted);font-size:14px}.count{margin:18px 0;color:var(--muted);font-size:13px}.btn{border:0;border-radius:11px;background:var(--blue);color:#fff;padding:12px 17px;font-weight:700}.btn.secondary{background:#edf1ff;color:var(--blue)}.btn:disabled{opacity:.45;cursor:not-allowed}.notice{border-radius:12px;background:#fff5dd;color:#77530a;padding:12px 14px;font-size:13px;margin-top:14px}.hide{display:none!important}.quiz{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(20px,5vw,38px);box-shadow:0 12px 36px #283d6810}.row{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;margin-bottom:14px}.bar{height:7px;background:#edf0f6;border-radius:99px;overflow:hidden;margin-bottom:28px}.bar i{display:block;height:100%;background:var(--blue);transition:width .25s}.qtitle{font-size:clamp(20px,3vw,26px);line-height:1.3;margin:0 0 20px}.badge{display:inline-block;border-radius:99px;background:#fff1d7;color:#90630b;font-size:12px;font-weight:700;padding:4px 9px;margin:0 0 14px}.answers{display:grid;gap:10px}.answer{width:100%;text-align:left;color:var(--ink);background:white;border:1px solid var(--line);border-radius:12px;padding:14px 16px;transition:.15s}.answer:hover:not(:disabled){border-color:#9aaef7;background:#f8f9ff}.answer.correct{border-color:#78c8a4;background:#edfaf3;color:#126342}.answer.wrong{border-color:#e4a0a7;background:#fff1f2;color:#9b2634}.answer:disabled{cursor:default}.explain{margin-top:16px;padding:14px 16px;background:#f5f7fb;border-radius:12px;color:#495975;font-size:14px}.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px}.linkbtn{border:0;background:none;color:var(--muted);padding:10px 0}.result{text-align:center}.score{font-size:48px;font-weight:800;letter-spacing:-.04em;margin:12px}.result p{color:var(--muted)}.review{margin-top:22px;text-align:left;display:grid;gap:10px}.review article{padding:14px;background:#f6f8fc;border-radius:12px}.review small{color:var(--muted)}footer{color:var(--muted);font-size:12px;text-align:center;margin-top:28px}@media(max-width:650px){.wrap{padding:20px 14px 40px}.cards{grid-template-columns:1fr}.top{margin-bottom:22px}.hero{margin:32px 0 22px}.actions{align-items:stretch}.actions .btn{flex:1}}
+</style></head><body><main class="wrap"><header class="top"><div class="brand">◉ <span>Радио</span>Тренажёр</div><div class="saved" id="saved">Прогресс сохраняется на этом устройстве</div></header>
+<section id="home"><div class="hero"><div class="eyebrow">Учись в своём темпе</div><h1>Подготовка к тесту<br>по радиотехнике</h1><p>Выбирай тест, отвечай на вопросы и сразу разбирай ошибки. Порядок вопросов и вариантов меняется при каждом прохождении.</p></div><div class="cards"><article class="card"><h2>Радиопередающие устройства</h2><p>ГВВ, АМ, ЧМ и режимы передатчиков</p><div class="count">30 вопросов · 2 требуют рисунка</div><button class="btn" onclick="start(1)">Начать тест</button> <button class="btn secondary" onclick="resume(1)">Продолжить</button></article><article class="card"><h2>Радиоприёмные устройства</h2><p>РПУ, преселектор, УРЧ и УПЧ</p><div class="count">31 вопрос · часть требует проверки</div><button class="btn" onclick="start(2)">Начать тест</button> <button class="btn secondary" onclick="resume(2)">Продолжить</button></article></div><div class="notice">В тесте 1 вопросы 18 и 20 временно доступны как текстовые: они не входят в оценку без исходных рисунков. В тесте 2 пункты с сомнительной расшифровкой помечены и исключены из оценки, пока не будут уточнены.</div></section>
+<section id="play" class="hide"><div class="quiz" id="quiz"></div></section><footer>Ваши ответы и прогресс хранятся только в локальном хранилище браузера.</footer></main>
+<script>
+const tests={
+1:{title:'Радиопередающие устройства',questions:[
+['В каком каскаде ВЧ-тракта осуществляется АМ для получения максимального КПД АМ-передатчика?','В оконечном каскаде.'],
+['В каком частотном диапазоне применяются умножители частоты на пассивном нелинейном элементе?','В СВЧ-диапазоне.'],
+['Укажите место умножителя частоты.','Между первым и вторым промежуточными каскадами.'],
+['Генераторы подразделяются на два основных типа.','Автогенераторы и генераторы с внешним возбуждением.'],
+['Для чего колебательная цепь ГВВ содержит регулировочные элементы?','Для настройки в резонанс, обеспечения критического режима и согласования с нагрузкой.'],
+['Как зависит стабильность частоты АГ от активного сопротивления внешней нагрузки?','Улучшается с ростом сопротивления.'],
+['Как изменяются коэффициент фильтрации и КПД сложных колебательных систем с увеличением числа звеньев?','Коэффициент фильтрации увеличивается, КПД уменьшается.'],
+['Как отражается на режиме ГВВ рассогласование с нагрузкой?','Уменьшается мощность в нагрузке.'],
+['Какие параметры ГВВ являются первыми по значимости?','Максимальная мощность и высокий КПД.'],
+['Какие резонансы частот кварцевого резонатора могут быть?','Последовательный и параллельный.'],
+['Каким должен быть коэффициент обратной связи в трёхточечных схемах АГ?','0 < Кос < 1.'],
+['Каким параметром характеризуют нестабильность частоты АГ?','Относительным средним квадратом флуктуаций частоты.'],
+['Какой должна быть характеристика преобразующего элемента в умножителе частоты?','Нелинейной.'],
+['Какой должна быть цепь согласования ГВВ для получения высокого КПД?','Должна состоять из реактивных элементов.'],
+['Какой метод чаще применяется при прямой ЧМ?','Изменение частоты контура.'],
+['Какой приём наиболее эффективен для стабилизации частоты АГ?','Повышение добротности колебательной системы.'],
+['Какой режим задаётся в предварительных каскадах АМ-передатчика?','Критический.'],
+['Какой рисунок соответствует схеме с общим коллектором?','Третий рисунок.','image'],
+['Какой должна быть амплитуда модуляционного сигнала?','Конечной и симметричной.'],
+['На какой из схем напряжение смещения для схемы с ОЭ создаётся делителем напряжения?','Рисунок «б».','image'],
+['Назначение колебательной системы ГВВ?','Задать критический режим и обеспечить требуемую фильтрацию.'],
+['Основное достоинство передатчиков с однополосной модуляцией?','Большая мощность информативной части сигнала.'],
+['Основное достоинство мостовой схемы включения активных элементов?','Отсутствие влияния активных элементов друг на друга.'],
+['От чего зависит величина девиации частоты при ЧМ?','От амплитуды модулирующего сигнала.'],
+['Чему равна полоса АМ-сигнала (модулирующий сигнал от Fн до Fв)?','2Fв.'],
+['Чему равна полоса ОМ-сигнала (модулирующий сигнал от Fн до Fв)?','Fв − Fн.'],
+['Что такое девиация частоты?','Отклонение частоты колебаний от среднего значения.'],
+['Что такое критический режим ГВВ?','Режим, соответствующий точкам перегиба обобщённых статических характеристик ЭП: импульсы тока выхода слегка искажённой косинусоидальной формы, КПД высокий, ток входа ≈ 0,1 тока выхода.'],
+['Что такое недонапряжённый режим ГВВ?','Импульсы тока выхода косинусоидальной формы, ток входа мал, КПД низкий.'],
+['Что такое перенапряжённый режим ГВВ?','Импульсы тока выхода имеют провал, ток входа возрастает, КПД увеличивается.'] ]},
+2:{title:'Радиоприёмные устройства',questions:[
+['АСМ ограничивает в схеме радиоприёмного устройства; перед УВ — [неразборчиво].','Не определено по расшифровке.','review'],
+['В каком случае проявляется эффект детектора?','Если частота настройки контуров меньше или больше промежуточной частоты, проявляется эффект.'],
+['В каком тракте РПУ должна быть подавлена помеха прямого прохождения?','В тракте РЧ.'],
+['В каком тракте супергетеродинного РПУ необходимо подавлять помеху зеркального канала?','В тракте УРЧ.'],
+['В каком тракте супергетеродинного РПУ необходимо подавлять помеху соседнего канала?','В тракте ПЧ.'],
+['Величина [неразборчиво] на вход фазового детектора зависит от чего?','От разности фаз сигналов и опорной частоты.','review'],
+['Для чего питанием гетеродина по постоянному току в блоке УВ подаётся дополнительная стабилизация?','Для улучшения стабильности частоты.'],
+['Для чего перед частотным детектором ставится ограничитель?','Для устранения паразитной амплитудной модуляции.'],
+['За счёт чего супергетеродинное РПУ получает лучшие показатели?','В основном за счёт преимуществ в селективности и чувствительности.'],
+['Из каких частей состоит преселектор?','Усилитель и гетеродин.','review'],
+['Из каких частей состоит преобразователь?','Входная цепь и УРЧ.','review'],
+['Избирательность какого РПУ лучше?','Не определено: тип РПУ неразборчив.','review'],
+['Как изменяется крутизна характеристики УВЧ с ростом числа контуров?','Увеличивается.'],
+['Как изменяется полоса пропускания УПЧ при увеличении добротности контуров?','Уменьшается.'],
+['[Неразборчивое обозначение] и добротность — что происходит?','Увеличивается.','review'],
+['Как изменяется усиление УРЧ, если его резонансная частота и добротность увеличиваются?','Ответ в исходной расшифровке не указан однозначно.','review'],
+['Как изменяется чувствительность схемы УПЧ?','Уменьшается.'],
+['Какими параметрами определяется динамический диапазон?','Нижней и верхней границами.'],
+['Какие параметры определяют динамический диапазон?','Снизу — чувствительность, сверху — [неразборчиво].','review'],
+['Назовите виды усиления, передающего воздействие постоянной [неразборчиво].','Ответ неразборчив.','review'],
+['Укажите полосу ВЧС цепей РПУ.','60 дБ.'],
+['Укажите назначение детектора.','Для выделения НЧ-сигнала из модулированного.'],
+['Укажите основные свойства РПУ.','Приём АМ, [неразборчиво].','review'],
+['Укажите формулу коэффициента передачи цепей.','K = Uвых / Eа.'],
+['От чего зависит коэффициент усиления?','От крутизны характеристики, коэффициента передачи, степени [неразборчиво].','review'],
+['Чем выше добротность контура УРЧ, тем…','Уже полоса пропускания.'],
+['Чему равна промежуточная частота?','Fпромеж = Fгет − Fсигн.'],
+['Что будет с усилением УРЧ, если растёт добротность контура?','Увеличивается.'],
+['Что происходит с усилением УРЧ при уменьшении его резонансной частоты?','Увеличивается.'],
+['Что такое динамический диапазон РПУ?','Диапазон входных сигналов от минимальных до максимальных, при которых РПУ работает с заданными показателями качества.'],
+['Чувствительность какого РПУ лучше?','100 мкВ [продолжение ответа не видно на фотографии].','review'] ]}
+};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function distractors(answer,idx){const pool=[...new Set(tests[session.id].questions.map(x=>x[1]).filter(x=>x!==answer))];let startAt=(idx*7)%pool.length;return Array.from({length:pool.length},(_,n)=>pool[(startAt+n)%pool.length]).slice(0,3)}function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let session=null;function start(id,onlyErrors=false){const key='radio-progress-'+id;let old=JSON.parse(localStorage.getItem(key)||'null');let ids=tests[id].questions.map((_,i)=>i);if(onlyErrors&&old?.errors?.length)ids=old.errors;session={id,ids:shuffle(ids),pos:0,answers:{},choices:{},mode:onlyErrors?'errors':'full'};document.getElementById('home').classList.add('hide');document.getElementById('play').classList.remove('hide');render()}
+function resume(id){const p=JSON.parse(localStorage.getItem('radio-progress-'+id)||'null');if(p?.session){session=p.session;document.getElementById('home').classList.add('hide');document.getElementById('play').classList.remove('hide');render()}else start(id)}
+function save(){if(!session)return;localStorage.setItem('radio-progress-'+session.id,JSON.stringify({session,errors:Object.entries(session.answers).filter(([,v])=>v===false).map(([k])=>+k)}))}
+function render(){let q=tests[session.id].questions[session.ids[session.pos]], idx=session.ids[session.pos], flag=q[2], answer=q[1];let chosen=session.answers[idx]!==undefined;let opts=session.choices[idx]||shuffle([answer,...distractors(answer,idx)]);session.choices[idx]=opts;document.getElementById('quiz').innerHTML=`<div class="row"><span>${esc(tests[session.id].title)}</span><span>${session.pos+1} / ${session.ids.length}</span></div><div class="bar"><i style="width:${(session.pos/session.ids.length)*100}%"></i></div>${flag?`<div class="badge">${flag==='image'?'Требуется изображение · не входит в оценку':'Требует проверки · не входит в оценку'}</div>`:''}<h2 class="qtitle">${esc(q[0])}</h2>${flag==='image'?'<div class="notice">Временный режим: ответ воспроизводит подпись из расшифровки. Без рисунка вопрос не оценивается.</div>':''}${flag==='review'?'<div class="notice">Ответ не подтверждён по исходной расшифровке. Варианты ниже служат только для тренировки чтения формулировки.</div>':''}<div class="answers">${opts.map((o,n)=>`<button class="answer ${chosen&&!flag&&o===answer?'correct':''} ${chosen&&!flag&&o!==answer&&session.answers[idx]===o?'wrong':''}" ${chosen?'disabled':''} onclick="choose(${idx},${JSON.stringify(o).replace(/"/g,'&quot;')})">${String.fromCharCode(1040+n)}. ${esc(o)}</button>`).join('')}</div>${chosen?`<div class="explain">${flag?'Пункт исключён из подсчёта. ':session.answers[idx]===answer?'Верно. ':'Неверно. '}Ответ по расшифровке: <b>${esc(answer)}</b>${flag==='review'?' Ответ пока не считается установленным.':''}</div>`:''}<div class="actions"><button class="linkbtn" onclick="goHome()">← К списку тестов</button>${chosen?`<button class="btn" onclick="next()">${session.pos===session.ids.length-1?'Завершить':'Следующий вопрос'} →</button>`:''}</div>`;save()}
+function choose(idx,o){const q=tests[session.id].questions[idx];session.answers[idx]=q[2]?o===q[1]:o===q[1];render()}
+function next(){if(session.pos<session.ids.length-1){session.pos++;render()}else result()}
+function result(){const q=tests[session.id].questions;let valid=session.ids.filter(i=>!q[i][2]);let correct=valid.filter(i=>session.answers[i]===true).length;let errors=valid.filter(i=>session.answers[i]===false);let pct=valid.length?Math.round(correct/valid.length*100):0;const data={session:null,errors:errors.map(i=>i),last:{correct,total:valid.length,pct}};localStorage.setItem('radio-progress-'+session.id,JSON.stringify(data));let details=errors.length?`<div class="review"><b>Ошибки для повторения</b>${errors.map(i=>`<article><small>Вопрос ${i+1}</small><div>${esc(q[i][0])}</div><small>Верный ответ: ${esc(q[i][1])}</small></article>`).join('')}</div>`:'<p>Ошибок нет — отлично!</p>';document.getElementById('quiz').innerHTML=`<div class="result"><div class="eyebrow">Тест завершён</div><h2>${esc(tests[session.id].title)}</h2><div class="score">${correct} / ${valid.length}</div><p>${pct}% правильных ответов · вопросы с пометками исключены из подсчёта</p>${details}<div class="actions"><button class="btn secondary" onclick="goHome()">К тестам</button><button class="btn" ${errors.length?'':'disabled'} onclick="start(${session.id},true)">Повторить ошибки (${errors.length})</button></div></div>`;session=null}
+function goHome(){session=null;document.getElementById('play').classList.add('hide');document.getElementById('home').classList.remove('hide')}
+</script></body></html>
